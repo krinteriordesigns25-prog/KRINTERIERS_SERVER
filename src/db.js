@@ -7,21 +7,29 @@ const dialect = process.env.DB_DIALECT || "sqlite";
 export let sequelize;
 
 if (dialect === "postgres") {
-  if (!process.env.DATABASE_URL) {
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
     throw new Error("DATABASE_URL is missing");
   }
 
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+  // Explicitly load PostgreSQL driver
+  const pg = await import("pg");
+
+  sequelize = new Sequelize(databaseUrl, {
     dialect: "postgres",
+    dialectModule: pg.default || pg,
     logging: false,
+
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: true,
       },
     },
+
     pool: {
-      max: 5,
+      max: 3,
       min: 0,
       acquire: 30000,
       idle: 10000,
