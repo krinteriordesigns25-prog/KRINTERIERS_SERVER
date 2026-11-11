@@ -7,7 +7,7 @@ import {
   getAdminReviews,
   toggleReviewPublished,
   updateReview,
-} from "../Controllers/reviewController.js";
+} from "../controllers/reviewController.js";
 import { requireAuth } from "../auth.js";
 
 const router = Router();
