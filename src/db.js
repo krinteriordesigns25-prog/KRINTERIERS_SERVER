@@ -50,7 +50,7 @@ if (dialect === "postgres") {
 } else if (dialect === "sqlite") {
   const storage = path.resolve(process.env.SQLITE_PATH || "./data/cms.sqlite");
 
-  fs.mkdirSync(path.dirname(storage), { recursive: true });
+  fs.mkdirSync(path.dirname(storage));
 
   sequelize = new Sequelize({
     dialect: "sqlite",
