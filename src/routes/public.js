@@ -60,7 +60,7 @@ router.get(
 router.get("/faq", getPublicFAQs);
 
 router.get(
-  "/reviews",
+  "/reviewsall",
   ah(async (req, res) => {
     const slides = await Review.findAll({
       where: { isActive: true },
